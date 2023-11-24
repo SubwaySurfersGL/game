@@ -10,6 +10,8 @@
 #define H 1000.0
 #define W 1000.0
 
+int indiceChao = 0;
+
 void Inicia()
 {
 	glEnable(GL_DEPTH_TEST);
@@ -30,9 +32,10 @@ void Desenha()
 
 	glPushMatrix();
 		Camera();
-		DesenhaCenario();
+		DesenhaCenario(indiceChao);
 		DesenhaEsfera();
 		Posicao();
+		if(posY > (indiceChao+22.5)) { indiceChao += 45; }
 	glPopMatrix();
 
 	glutSwapBuffers();

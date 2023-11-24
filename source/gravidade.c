@@ -40,5 +40,5 @@ void Posicao()
 	TimeMove();
 	Velocidade();
 
-	if(posZ >= 0.5) { posZ -= vel*dt; }
+	if(posZ >= 1.0) { posZ -= vel*dt; }
 }

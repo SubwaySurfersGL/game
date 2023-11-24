@@ -1,6 +1,6 @@
 #ifndef CENARIO
 #define CENARIO
 
-void DesenhaCenario();
+void DesenhaCenario(int i);
 
 #endif
