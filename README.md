@@ -4,10 +4,10 @@
 
 Makefile presente. Executar os seguintes comandos:
 
-'''
+´´´
 cd source
 make
-'''
+´´´
 
 ## Movimentos
 
