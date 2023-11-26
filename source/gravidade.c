@@ -5,40 +5,24 @@
 #include "camera.h"
 #include "cenario.h"
 #include "personagens.h"
+#include "interacao.h"
 
-#define gravidade 9.81
-#define massa 5
+#define DESCER 0
+#define SUBIR 1
 
-float vel = 0.0, peso = 0.0;
+float velZ = 0.0, peso = 400.0, forca = 200.0;
 
-float dt = 0.0, oldt = 0.0;
-
-void TimeMove()
+void VelocidadeZ(int flag)
 {
-	int t;
-
-	t = glutGet(GLUT_ELAPSED_TIME);
-
-	dt = (t - oldt) / 2000.0;
-
-	oldt = t;
+	if(flag == DESCER) { velZ -= peso * dt; }
+	else if(flag == SUBIR) { velZ += forca * dt; }
 }
 
-void Aceleracao()
+void PosicaoZ()
 {
-	peso = massa * gravidade;
-}
+	if(pulo == 1 && personagemPosZ < 3.5) { VelocidadeZ(SUBIR); personagemPosZ += velZ*dt; }
 
-void Velocidade()
-{
-	Aceleracao();
-	vel += peso*dt;
-}
+	else if(personagemPosZ >= 3.5) { pulo = 0; velZ = 0; }
 
-void Posicao()
-{
-	TimeMove();
-	Velocidade();
-
-	if(posZ >= 1.0) { posZ -= vel*dt; }
+	if(pulo == 0 && personagemPosZ > 1.5) { VelocidadeZ(DESCER); personagemPosZ += velZ*dt; }
 }

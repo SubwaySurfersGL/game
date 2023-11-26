@@ -1,8 +1,8 @@
 #ifndef GRAVIDADE
 #define GRAVIDADE
 
-extern float vel;
+extern float velZ;
 
-void Posicao();
+void PosicaoZ();
 
 #endif

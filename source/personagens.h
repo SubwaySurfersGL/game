@@ -1,11 +1,11 @@
 #ifndef PERSONAGENS
 #define PERSONAGENS
 
-extern float posX;
-extern float posY;
-extern float posZ;
-extern float rotX;
-extern float rotY;
+extern float personagemPosX;
+extern float personagemPosY;
+extern float personagemPosZ;
+extern float personagemRotX;
+extern float personagemRotY;
 
 void DesenhaEsfera();
 

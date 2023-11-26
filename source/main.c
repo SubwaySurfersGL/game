@@ -5,7 +5,9 @@
 #include "cenario.h"
 #include "camera.h"
 #include "gravidade.h"
+#include "movimento.h"
 #include "personagens.h"
+#include "interacao.h"
 
 #define H 1000.0
 #define W 1000.0
@@ -14,9 +16,21 @@ int indiceChao = 0;
 
 void Inicia()
 {
+	glEnable (GL_COLOR_MATERIAL);
 	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
 
-	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHTING);
+
+	glEnable(GL_NORMALIZE);
+
+	glClearColor(0.53, 0.81, 0.92, 1.0);
+
+	IniciaObstaculos();
+
+	Iluminacao();
 }
 
 void Timer(int v)
@@ -31,11 +45,14 @@ void Desenha()
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
+		TimeMove();
 		Camera();
 		DesenhaCenario(indiceChao);
 		DesenhaEsfera();
-		Posicao();
-		if(posY > (indiceChao+22.5)) { indiceChao += 45; }
+		PosicaoX();
+		PosicaoY();
+		PosicaoZ();
+		if(personagemPosY > (indiceChao+45)) { indiceChao += 90; }
 	glPopMatrix();
 
 	glutSwapBuffers();
