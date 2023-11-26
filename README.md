@@ -11,12 +11,8 @@ make
 
 ## Movimentos
 
-w: avançar
-
-s: voltar
+w: pular
 
 a: esquerda
 
 d: direita
-
-p: pular
