@@ -7,6 +7,6 @@
 #define ITERACOES 4
 
 void DesenhaCenario(int i);
-void IniciaObstaculos();
+void IniciaObstaculos(int i, unsigned int r);
 
 #endif

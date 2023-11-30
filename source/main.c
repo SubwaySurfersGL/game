@@ -1,7 +1,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "cenario.h"
 #include "camera.h"
 #include "gravidade.h"
@@ -13,6 +15,8 @@
 #define W 1000.0
 
 int indiceChao = 0;
+
+unsigned int r = 0;
 
 void Inicia()
 {
@@ -28,7 +32,9 @@ void Inicia()
 
 	glClearColor(0.53, 0.81, 0.92, 1.0);
 
-	IniciaObstaculos();
+	srand(time(NULL));
+
+	r = rand()%10000;
 
 	Iluminacao();
 }
@@ -48,11 +54,12 @@ void Desenha()
 		TimeMove();
 		Camera();
 		DesenhaCenario(indiceChao);
+		IniciaObstaculos(indiceChao, r);
 		DesenhaEsfera();
 		PosicaoX();
 		PosicaoY();
 		PosicaoZ();
-		if(personagemPosY > (indiceChao+45)) { indiceChao += 90; }
+		if(personagemPosY > (indiceChao+45)) { indiceChao += 90; r = rand()%10000; }
 	glPopMatrix();
 
 	glutSwapBuffers();

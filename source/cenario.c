@@ -8,7 +8,7 @@
 #define PEQUENO 0
 #define GRANDE 1
 
-#define N_OBS 5
+#define N_OBS 6
 
 typedef struct posicao
 {
@@ -20,20 +20,34 @@ float cenarioPosY = 0.0;
 
 posicao obstaculos[N_OBS];
 
-void IniciaObstaculos()
+void IniciaObstaculos(int i, unsigned int r)
 {
-	int i;
+	int j;
 
-	for(i = 0; i < N_OBS; i++)
+	for(j = 0; j < N_OBS/2; j++)
 	{
-		obstaculos[i].flag = (i*i*i)%2;
+		int fator = i+j+r;
 
-		if((i)%3 == 1) { obstaculos[i].posX = -2.5; }
-		else if((i)%3 == 2) { obstaculos[i].posX = 2.5; }
-		else { obstaculos[i].posX = 0; }
+		obstaculos[j].flag = (fator)%2;
 
-		if(i == 0) { obstaculos[i].posY = 0; }
-		else { obstaculos[i].posY = powf(-1, (i+1))*(45.0/i); }
+		if((fator)%3 == 1) { obstaculos[j].posX = -2.5; }
+		else if((fator)%3 == 2) { obstaculos[j].posX = 2.5; }
+		else if((fator)%3 == 0) { obstaculos[j].posX = 0; }
+
+		obstaculos[j].posY = (fator%45)+i;
+	}
+
+	for(j = N_OBS/2; j < N_OBS; j++)
+	{
+		int fator = i+j+r;
+
+		obstaculos[j].flag = (fator)%2;
+
+		if((fator)%3 == 1) { obstaculos[j].posX = -2.5; }
+		else if((fator)%3 == 2) { obstaculos[j].posX = 2.5; }
+		else if((fator)%3 == 0) { obstaculos[j].posX = 0; }
+
+		obstaculos[j].posY = -(fator%45)+i;
 	}
 }
 
@@ -182,8 +196,7 @@ void DesenhaCenario(int i)
 	glPushMatrix();
 		for(j = 0; j < N_OBS; j++)
 		{
-			Obstaculos(obstaculos[j].flag, obstaculos[j].posX, obstaculos[j].posY+i);
-			Obstaculos(obstaculos[j].flag, obstaculos[j].posX, obstaculos[j].posY+i+90);
+			Obstaculos(obstaculos[j].flag, obstaculos[j].posX, obstaculos[j].posY);
 		}
 		Chao(i-90);
 		Chao(i);
