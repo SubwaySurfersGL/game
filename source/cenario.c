@@ -8,14 +8,6 @@
 #define PEQUENO 0
 #define GRANDE 1
 
-#define N_OBS 5
-
-typedef struct posicao
-{
-	int flag;
-	float posX, posY;
-} posicao;
-
 float cenarioPosY = 0.0;
 
 posicao obstaculos[N_OBS];
