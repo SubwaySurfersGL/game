@@ -1,15 +1,37 @@
 #include "personagens.h"
+#include "cenario.h"
 
-int checkCollision() {
-    // personagemPosX = -44;
-    // personagemPosY = -44;
-    // personagemPosZ = 1.0;
-    // int collisionX = one.Position.x + one.Size.x >= two.Position.x &&
-    //     two.Position.x + two.Size.x >= one.Position.x;
+int checkBottomCollision() {
+    /*
+        Função faz a verificação se o personagem faz contato com o topo do obstáculo
+    */
+    float autura = 1.;
 
-    // int collisionY = one.Position.y + one.Size.y >= two.Position.y &&
-    //     two.Position.y + two.Size.y >= one.Position.y;
+    for (int obstaculoIndex = 0; obstaculoIndex < N_OBS; obstaculoIndex++) {
+        posicao posicao = obstaculos[obstaculoIndex];
+        int colisaoX = personagemPosX >= posicao.posX && personagemPosX <= posicao.posX + 2.;
+        int colisaoY;
+        int colisaoZ;
+        if (posicao.flag == GRANDE) {
+            colisaoY = personagemPosY >= posicao.posY + indiceChao && personagemPosY <= posicao.posY + indiceChao + 9.;
+            colisaoZ = personagemPosZ - autura <= 3.;
+        } else {
+            colisaoY = personagemPosY >= posicao.posY + indiceChao && personagemPosY <= posicao.posY + indiceChao + 2.;
+            colisaoZ = personagemPosZ - autura <= 1.5;
+        }
+        if (colisaoX && colisaoY && colisaoZ)
+            return 1;
+    }
 
-    // return collisionX && collisionY;
     return 0;
-}  
+}
+
+int checkFrontCollision() {
+    /*
+        Função faz a verificação se o personagem faz contato com alguma das faces do obstáculo
+    */
+    for (int obstaculoIndex = 0; obstaculoIndex < N_OBS; obstaculoIndex++) {
+
+    }
+    return 0;
+}

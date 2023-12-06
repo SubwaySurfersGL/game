@@ -5,8 +5,6 @@
 #include "cenario.h"
 #include "camera.h"
 
-#define PEQUENO 0
-#define GRANDE 1
 
 float cenarioPosY = 0.0;
 

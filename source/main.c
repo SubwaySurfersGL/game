@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "cenario.h"
 #include "camera.h"
+#include "colisao.h"
 #include "gravidade.h"
 #include "movimento.h"
 #include "personagens.h"
@@ -12,7 +13,7 @@
 #define H 1000.0
 #define W 1000.0
 
-int indiceChao = 0;
+indiceChao = 0;
 
 void Inicia()
 {
@@ -36,7 +37,7 @@ void Inicia()
 void Timer(int v)
 {
 	glutPostRedisplay();
-
+	checkBottomCollision();
 	glutTimerFunc(40, Timer, v);
 }
 

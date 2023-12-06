@@ -1,6 +1,7 @@
 #ifdef COLISAO
 #define COLISAO
 
-int checkCollision();
+int checkBottomCollision();
+int checkFrontCollision();
 
 #endif
