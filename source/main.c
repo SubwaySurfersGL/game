@@ -13,7 +13,7 @@
 #define H 1000.0
 #define W 1000.0
 
-indiceChao = 0;
+int indiceChao = 0;
 
 void Inicia()
 {
@@ -37,7 +37,7 @@ void Inicia()
 void Timer(int v)
 {
 	glutPostRedisplay();
-	checkBottomCollision();
+//	checkBottomCollision();
 	glutTimerFunc(40, Timer, v);
 }
 
@@ -50,10 +50,13 @@ void Desenha()
 		Camera();
 		DesenhaCenario(indiceChao);
 		DesenhaEsfera();
-		PosicaoX();
-		PosicaoY();
-		PosicaoZ();
-		if(personagemPosY > (indiceChao+45)) { indiceChao += 90; }
+                checkBottomCollision();
+		if(flag){
+	                PosicaoX();
+        	        PosicaoY();
+                	PosicaoZ();
+                	if(personagemPosY > (indiceChao+45)) { indiceChao += 90; }
+		}
 	glPopMatrix();
 
 	glutSwapBuffers();

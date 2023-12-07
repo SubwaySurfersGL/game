@@ -15,18 +15,21 @@ void Keyboard(unsigned char c, int x, int y)
 {
 	switch(c)
 	{
+		case 'A':
 		case 'a':
 			if(personagemPosX <= 0) { metade = ESQUERDA; }
 			else if(personagemPosX > 0) { metade = DIREITA; }
 			lado = 1;
 		break;
 
+		case 'D':
 		case 'd':
 			if(personagemPosX < 0) { metade = ESQUERDA; }
 			else if(personagemPosX >= 0) { metade = DIREITA; }
 			lado = 2;
 		break;
 
+		case 'W':
 		case 'w':
 			velZ = 0;
 			pulo = 1;

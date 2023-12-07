@@ -1,5 +1,10 @@
 #include "personagens.h"
 #include "cenario.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "movimento.h"
+
+int flag = 1;
 
 int checkBottomCollision() {
     /*
@@ -13,16 +18,17 @@ int checkBottomCollision() {
         int colisaoY;
         int colisaoZ;
         if (posicao.flag == GRANDE) {
-            colisaoY = personagemPosY >= posicao.posY + indiceChao && personagemPosY <= posicao.posY + indiceChao + 9.;
+            colisaoY = personagemPosY >= posicao.posY + indiceChao-5.0 && personagemPosY <= posicao.posY + indiceChao + 9.;
             colisaoZ = personagemPosZ - autura <= 3.;
         } else {
-            colisaoY = personagemPosY >= posicao.posY + indiceChao && personagemPosY <= posicao.posY + indiceChao + 2.;
+            colisaoY = personagemPosY >= posicao.posY + indiceChao-1.25 && personagemPosY <= posicao.posY + indiceChao + 2.;
             colisaoZ = personagemPosZ - autura <= 1.5;
         }
-        if (colisaoX && colisaoY && colisaoZ)
+        if (colisaoX && colisaoY && colisaoZ){
+	    flag = 0;
             return 1;
+	}
     }
-
     return 0;
 }
 
