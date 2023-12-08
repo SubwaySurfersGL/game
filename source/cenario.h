@@ -6,7 +6,18 @@
 #define ESCALA_Z 1.0/sqrt(0.7)
 #define ITERACOES 4
 
+#define N_OBS 11
+
+typedef struct posicao
+{
+	int flag;
+	float posX, posY;
+} posicao;
+
+extern int posicoesY[N_OBS];
+extern unsigned int r;
+
 void DesenhaCenario(int i);
-void IniciaObstaculos(int i, unsigned int r);
+void IniciaObstaculos();
 
 #endif

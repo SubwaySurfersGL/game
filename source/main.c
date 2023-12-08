@@ -16,8 +16,6 @@
 
 int indiceChao = 0;
 
-unsigned int r = 0;
-
 void Inicia()
 {
 	glEnable (GL_COLOR_MATERIAL);
@@ -34,7 +32,9 @@ void Inicia()
 
 	srand(time(NULL));
 
-	r = rand()%10000;
+	r = rand()%5;
+
+	IniciaObstaculos();
 
 	Iluminacao();
 }
@@ -54,12 +54,11 @@ void Desenha()
 		TimeMove();
 		Camera();
 		DesenhaCenario(indiceChao);
-		IniciaObstaculos(indiceChao, r);
 		DesenhaEsfera();
 		PosicaoX();
 		PosicaoY();
 		PosicaoZ();
-		if(personagemPosY > (indiceChao+45)) { indiceChao += 90; r = rand()%10000; }
+		if(personagemPosY > (indiceChao+125)) { indiceChao += 250; }
 	glPopMatrix();
 
 	glutSwapBuffers();
