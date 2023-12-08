@@ -5,16 +5,14 @@
 #include <stdlib.h>
 #include "cenario.h"
 #include "camera.h"
-
-#define PEQUENO 0
-#define GRANDE 1
-
-float cenarioPosY = 0.0;
+#include "colisao.h"
 
 posicao obstaculosAnt[N_OBS];
 posicao obstaculosAtual[N_OBS];
 posicao obstaculosProx[N_OBS];
-posicao *possiveis[5];
+posicao *possiveis[13];
+
+int indiceChao = 0;
 
 int posicoesY[N_OBS];
 
@@ -24,7 +22,7 @@ void IniciaObstaculos()
 {
 	int i, j;
 	int tipo[2] = { 0, 1 };
-	float posicoesX[4] = { -2.5, 0, 2.5 };
+	float posicoesX[3] = { -2.5, 0, 2.5 };
 
 	int posChao = -100;
 
@@ -34,9 +32,9 @@ void IniciaObstaculos()
 		posChao += 20;
 	}
 
-	for(i = 0; i < 5; i++) { possiveis[i] = malloc(N_OBS*sizeof(posicao)); }
+	for(i = 0; i < 13; i++) { possiveis[i] = malloc(N_OBS*sizeof(posicao)); }
 
-	for(i = 0; i < 5; i++)
+	for(i = 0; i < 13; i++)
 	{
 		for(j = 0; j < N_OBS; j++)
 		{

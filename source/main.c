@@ -10,11 +10,10 @@
 #include "movimento.h"
 #include "personagens.h"
 #include "interacao.h"
+#include "colisao.h"
 
 #define H 1000.0
 #define W 1000.0
-
-int indiceChao = 0;
 
 void Inicia()
 {
@@ -32,7 +31,7 @@ void Inicia()
 
 	srand(time(NULL));
 
-	r = rand()%5;
+	r = rand()%13;
 
 	IniciaObstaculos();
 
@@ -51,13 +50,17 @@ void Desenha()
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
-		TimeMove();
 		Camera();
 		DesenhaCenario(indiceChao);
 		DesenhaEsfera();
-		PosicaoX();
-		PosicaoY();
-		PosicaoZ();
+		CheckBottomCollision();
+		if(flagColisao)
+		{
+			TimeMove();
+			PosicaoX();
+			PosicaoY();
+			PosicaoZ();
+		}
 		if(personagemPosY > (indiceChao+125)) { indiceChao += 250; }
 	glPopMatrix();
 
