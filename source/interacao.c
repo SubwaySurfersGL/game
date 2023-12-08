@@ -22,7 +22,8 @@ void Keyboard(unsigned char c, int x, int y)
 			if(flagColisao == 0)
 			{
 				personagemPosX = 0;
-				personagemPosY = -124;
+				personagemPosY = -123;
+				personagemPosZ = 1.0;
 				camPosY = -135;
 				camLookY = 0;
 				velY = 40;

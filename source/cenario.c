@@ -49,9 +49,6 @@ void SetObstaculos(posicao *obstaculos, int indiceChao)
 {
 	int j;
 
-	int tipo[4] = { 0, 1, 0, 1 };
-	float posicoesX[4] = { -2.5, 0, 2.5 };
-
 	for(j = 0; j < N_OBS; j++)
 	{
 		obstaculos[j].flag = possiveis[r][j].flag;

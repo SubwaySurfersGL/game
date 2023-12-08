@@ -5,7 +5,7 @@
 #include "personagens.h"
 
 float personagemPosX = 0;
-float personagemPosY = -124;
+float personagemPosY = -123;
 float personagemPosZ = 1.0;
 float personagemRotX = 0;
 float personagemRotY = 0;

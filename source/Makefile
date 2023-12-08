@@ -1,15 +1,18 @@
 CC=gcc
+CFLAGS=-Wall -I.
+LIBS=-lglut -lGLU -lGL -lm
 
-all: run
+SRC=$(wildcard *.c)
+
+all: clean run
 
 run: out
-	./cod
+	./$<
 
-bug: out
-	gdb ./cod
-
-out:
-	$(CC) -g colisao.c interacao.c movimento.c gravidade.c personagens.c cenario.c camera.c main.c -o cod -lglut -lGLU -lGL -lm
+out: $(SRC)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 clean:
-	rm cod
+	@if [[ -f ./out ]]; then\
+		rm ./out;\
+	fi
