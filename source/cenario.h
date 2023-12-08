@@ -8,7 +8,7 @@
 #define PEQUENO 0
 #define GRANDE 1
 
-#define N_OBS 11
+#define N_OBS 17
 
 typedef struct posicao
 {

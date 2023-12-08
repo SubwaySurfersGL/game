@@ -61,7 +61,7 @@ void Desenha()
 			PosicaoY();
 			PosicaoZ();
 		}
-		if(personagemPosY > (indiceChao+125)) { indiceChao += 250; }
+		if(personagemPosY > (indiceChao+225)) { indiceChao += 450; r = rand()%13; }
 	glPopMatrix();
 
 	glutSwapBuffers();
