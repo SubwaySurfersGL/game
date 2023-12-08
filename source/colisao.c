@@ -40,7 +40,8 @@ int CheckBottomCollision()
     return 0;
 }
 
-int CheckFrontCollision() {
+int CheckFrontCollision() 
+{
     /*
         Função faz a verificação se o personagem faz contato com alguma das faces do obstáculo
     */
