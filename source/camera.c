@@ -10,7 +10,7 @@
 
 int zoom = 45;
 
-float camPosY = -135, camLookY = 0;
+float camPosY = -235, camLookY = 0;
 
 float dt = 0.0, oldt = 0.0;
 
@@ -47,7 +47,7 @@ void Camera()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-    gluPerspective(zoom, W/H, 1, 261);
+    gluPerspective(zoom, W/H, 1, 461);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

@@ -22,9 +22,9 @@ void Keyboard(unsigned char c, int x, int y)
 			if(flagColisao == 0)
 			{
 				personagemPosX = 0;
-				personagemPosY = -123;
+				personagemPosY = -223;
 				personagemPosZ = 1.0;
-				camPosY = -135;
+				camPosY = -235;
 				camLookY = 0;
 				velY = 40;
 				indiceChao = 0;

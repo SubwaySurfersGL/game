@@ -24,7 +24,7 @@ void IniciaObstaculos()
 	int tipo[2] = { 0, 1 };
 	float posicoesX[3] = { -2.5, 0, 2.5 };
 
-	int posChao = -100;
+	int posChao = -160;
 
 	for(j = 0; j < N_OBS; j++)
 	{
@@ -122,6 +122,11 @@ void Chao(float posY)
 	glPushMatrix();
 		glTranslatef(0, posY, 0);
 
+		DesenhaPlanta(-9, -242);
+		DesenhaPlanta(9, -219.5);
+		DesenhaPlanta(-9, -197);
+		DesenhaPlanta(9, -174.5);
+		DesenhaPlanta(-9, -152);
 		DesenhaPlanta(9, -130);
 		DesenhaPlanta(-9, -107.5);
 		DesenhaPlanta(9, -85);
@@ -135,38 +140,44 @@ void Chao(float posY)
 		DesenhaPlanta(7, 67.5);
 		DesenhaPlanta(-7, 45);
 		DesenhaPlanta(-8, 90);
+		DesenhaPlanta(8, 112.5);
+		DesenhaPlanta(-8, 125);
+		DesenhaPlanta(8, 147.5);
+		DesenhaPlanta(-8, 170);
+		DesenhaPlanta(8, 192.5);
+		DesenhaPlanta(-8, 215);
 
 		glPushMatrix();
 			glColor3f(0.45, 0.35, 0.27);
-			glScalef(9, 250, 0.5);
+			glScalef(9, 450, 0.5);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix();
 			glTranslatef(-10.5, 0, 0);
 			glColor3f(0.11, 0.39, 0.05);
-			glScalef(12, 250, 0.9);
+			glScalef(12, 450, 0.9);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix();
 			glTranslatef(10.5, 0, 0);
 			glColor3f(0.11, 0.39, 0.05);
-			glScalef(12, 250, 0.9);
+			glScalef(12, 450, 0.9);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix();
 			glTranslatef(15, 0, 0);
 			glColor3f(0.11, 0.39, 0.05);
-			glScalef(1, 250, 10);
+			glScalef(1, 450, 10);
 			glutSolidCube(1);
 		glPopMatrix();
 
 		glPushMatrix();
 			glTranslatef(-15, 0, 0);
 			glColor3f(0.11, 0.39, 0.05);
-			glScalef(1, 250, 10);
+			glScalef(1, 450, 10);
 			glutSolidCube(1);
 		glPopMatrix();
 	glPopMatrix();
@@ -178,7 +189,7 @@ void DesenhaCenario(int i)
 
 	glPushMatrix();
 		glColor3f(0.11, 0.19, 0.05);
-		glTranslatef(0, camLookY, 0);
+		glTranslatef(0, camLookY-100, 0);
 		glScalef(33, 1, 9);
 		glutSolidCube(1);
 	glPopMatrix();
@@ -186,43 +197,43 @@ void DesenhaCenario(int i)
 	glPushMatrix();
 		glTranslatef(0, 0, -0.4);
 		glScalef(1, 1, 1.1);
-		DesenhaPlanta(-15, camLookY-107.5);
-		DesenhaPlanta(-15, camLookY-85);
-		DesenhaPlanta(-15, camLookY-62.5);
-		DesenhaPlanta(-15, camLookY-40);
-		DesenhaPlanta(-15, camLookY-17.5);
-		DesenhaPlanta(15, camLookY-62.5);
-		DesenhaPlanta(15, camLookY-40);
-		DesenhaPlanta(15, camLookY-17.5);
-		DesenhaPlanta(15, camLookY-85);
-		DesenhaPlanta(15, camLookY-107.5);
+		DesenhaPlanta(-15, camLookY-207.5);
+		DesenhaPlanta(-15, camLookY-185);
+		DesenhaPlanta(-15, camLookY-162.5);
+		DesenhaPlanta(-15, camLookY-140);
+		DesenhaPlanta(-15, camLookY-117.5);
+		DesenhaPlanta(15, camLookY-117.5);
+		DesenhaPlanta(15, camLookY-140);
+		DesenhaPlanta(15, camLookY-162.5);
+		DesenhaPlanta(15, camLookY-185);
+		DesenhaPlanta(15, camLookY-207.5);
 	glPopMatrix();
 	glPushMatrix();
-		DesenhaPlanta(-3, camLookY-10);
-		DesenhaPlanta(3, camLookY-10);
-		DesenhaPlanta(-4, camLookY-5);
-		DesenhaPlanta(4, camLookY-5);
-		DesenhaPlanta(-8, camLookY-5);
-		DesenhaPlanta(8, camLookY-5);
+		DesenhaPlanta(-3, camLookY-110);
+		DesenhaPlanta(3, camLookY-110);
+		DesenhaPlanta(-4, camLookY-105);
+		DesenhaPlanta(4, camLookY-105);
+		DesenhaPlanta(-8, camLookY-105);
+		DesenhaPlanta(8, camLookY-105);
 		glScalef(1, 1, 1.2);
-		DesenhaPlanta(-12, camLookY-10);
-		DesenhaPlanta(12, camLookY-10);
+		DesenhaPlanta(-12, camLookY-105);
+		DesenhaPlanta(12, camLookY-105);
 		DesenhaPlanta(0, camLookY);
 	glPopMatrix();
 
 	glPushMatrix();
-		SetObstaculos(obstaculosAnt, i-250);
+		SetObstaculos(obstaculosAnt, i-450);
 		SetObstaculos(obstaculosAtual, i);
-		SetObstaculos(obstaculosProx, i+250);
+		SetObstaculos(obstaculosProx, i+450);
 		for(j = 0; j < N_OBS; j++)
 		{
 			Obstaculos(obstaculosAnt[j].flag, obstaculosAnt[j].posX, obstaculosAnt[j].posY);
 			Obstaculos(obstaculosAtual[j].flag, obstaculosAtual[j].posX, obstaculosAtual[j].posY);
 			Obstaculos(obstaculosProx[j].flag, obstaculosProx[j].posX, obstaculosProx[j].posY);
 		}
-		Chao(i-250);
+		Chao(i-450);
 		Chao(i);
-		Chao(i+250);
+		Chao(i+450);
 	glPopMatrix();
 }
 
