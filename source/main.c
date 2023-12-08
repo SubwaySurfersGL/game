@@ -42,7 +42,6 @@ void Inicia()
 void Timer(int v)
 {
 	glutPostRedisplay();
-	checkBottomCollision();
 	glutTimerFunc(40, Timer, v);
 }
 
