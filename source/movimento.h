@@ -5,6 +5,7 @@
 #define DIREITA 1
 
 extern float velX;
+extern float velY;
 extern int metade;
 
 void PosicaoX();

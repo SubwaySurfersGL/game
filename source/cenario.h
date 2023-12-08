@@ -18,6 +18,22 @@ typedef struct posicao
 extern posicao obstaculos[N_OBS];
 extern int indiceChao;
 
+#define PEQUENO 0
+#define GRANDE 1
+
+#define N_OBS 11
+
+typedef struct posicao
+{
+	int flag;
+	float posX, posY;
+} posicao;
+
+extern int indiceChao;
+extern int posicoesY[N_OBS];
+extern posicao obstaculosAtual[N_OBS];
+extern unsigned int r;
+
 void DesenhaCenario(int i);
 void IniciaObstaculos();
 

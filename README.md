@@ -8,8 +8,11 @@ Makefile presente. Executar os seguintes comandos:
 cd source
 make
 ```
+## Comandos
 
-## Movimentos
+space: reiniciar o jogo
+
+### Movimentos
 
 w: pular
 

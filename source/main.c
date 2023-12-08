@@ -1,7 +1,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "cenario.h"
 #include "camera.h"
 #include "colisao.h"
@@ -9,11 +11,10 @@
 #include "movimento.h"
 #include "personagens.h"
 #include "interacao.h"
+#include "colisao.h"
 
 #define H 1000.0
 #define W 1000.0
-
-indiceChao = 0;
 
 void Inicia()
 {
@@ -28,6 +29,10 @@ void Inicia()
 	glEnable(GL_NORMALIZE);
 
 	glClearColor(0.53, 0.81, 0.92, 1.0);
+
+	srand(time(NULL));
+
+	r = rand()%13;
 
 	IniciaObstaculos();
 
@@ -46,14 +51,18 @@ void Desenha()
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
-		TimeMove();
 		Camera();
 		DesenhaCenario(indiceChao);
 		DesenhaEsfera();
-		PosicaoX();
-		PosicaoY();
-		PosicaoZ();
-		if(personagemPosY > (indiceChao+45)) { indiceChao += 90; }
+		CheckBottomCollision();
+		if(flagColisao)
+		{
+			TimeMove();
+			PosicaoX();
+			PosicaoY();
+			PosicaoZ();
+		}
+		if(personagemPosY > (indiceChao+125)) { indiceChao += 250; }
 	glPopMatrix();
 
 	glutSwapBuffers();
