@@ -1,14 +1,17 @@
 #include <GL/freeglut_std.h>
+#include "personagens.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include "personagens.h"
+#include <stdio.h>
 
 float personagemPosX = 0;
 float personagemPosY = -223;
 float personagemPosZ = 1.0;
 float personagemRotX = 0;
 float personagemRotY = 0;
+int isAlive = 1;
+int vida = 2;
 
 void DesenhaEsfera()
 {
@@ -27,4 +30,16 @@ void DesenhaEsfera()
 			glutSolidSphere(0.5, 50, 50);
 		glPopMatrix();
 	glPopMatrix();
+}
+
+void onCollision(posicao *objeto) {
+	if (objeto->flag == GRANDE) {
+		vida -= 2;
+	}
+	else {
+		vida--;
+	}
+	if (vida <= 0) {
+		isAlive = 0;
+	}
 }

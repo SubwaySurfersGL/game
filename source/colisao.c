@@ -1,52 +1,44 @@
-#include "colisao.h"
 #include "personagens.h"
-#include "cenario.h"
-#include "stdio.h"
-#include "stdlib.h"
 #include "movimento.h"
+#include "cenario.h"
+#include "colisao.h"
+#include "stdlib.h"
+#include "stdio.h"
 
-int flagColisao = 1;
+posicao *colisao;
 
-int CheckBottomCollision()
-{
-    /*
-        Função faz a verificação se o personagem faz contato com o topo do obstáculo
-    */
+posicao *checkCollision() {
     float altura = 1.;
 
-    for(int obstaculoIndex = 0; obstaculoIndex < N_OBS; obstaculoIndex++)
-	{
-        posicao posicao = obstaculosAtual[obstaculoIndex];
-        int colisaoX = personagemPosX >= posicao.posX && personagemPosX <= posicao.posX + 2.;
+    for(int obstaculoIndex = 0; obstaculoIndex < N_OBS; obstaculoIndex++) {
+        posicao posicaoObject = obstaculosAtual[obstaculoIndex];
+        if (
+            colisao &&
+            posicaoObject.flag == colisao->flag &&
+            posicaoObject.posX == colisao->posX &&
+            posicaoObject.posY == colisao->posY
+        ) continue;
+        int colisaoX = personagemPosX >= posicaoObject.posX && personagemPosX <= posicaoObject.posX + 2.;
         int colisaoY;
         int colisaoZ;
-
-        if(posicao.flag == GRANDE)
-		{
-            colisaoY = personagemPosY >= posicao.posY + indiceChao-5.0 && personagemPosY <= posicao.posY + indiceChao + 9.;
+        
+        if(posicaoObject.flag == GRANDE) {
+            colisaoY = personagemPosY >= posicaoObject.posY - 5. && personagemPosY <= posicaoObject.posY  + 9.;
             colisaoZ = personagemPosZ - altura <= 3.;
-        } else
-		{
-            colisaoY = personagemPosY >= posicao.posY + indiceChao-1.25 && personagemPosY <= posicao.posY + indiceChao + 2.;
+        }
+        else {
+            colisaoY = personagemPosY >= posicaoObject.posY - 1.25 && personagemPosY <= posicaoObject.posY + 2.;
             colisaoZ = personagemPosZ - altura <= 1.5;
         }
 
-        if (colisaoX && colisaoY && colisaoZ)
-		{
-			flagColisao = 0;
-            return 1;
+        if (colisaoX && colisaoY && colisaoZ) {
+            colisao = (posicao *) malloc(sizeof(posicaoObject));
+            colisao->flag = posicaoObject.flag;
+            colisao->posX = posicaoObject.posX;
+            colisao->posY = posicaoObject.posY;
+            return colisao;
 		}
     }
-    return 0;
+    return NULL;
 }
 
-int CheckFrontCollision() 
-{
-    /*
-        Função faz a verificação se o personagem faz contato com alguma das faces do obstáculo
-    */
-    for (int obstaculoIndex = 0; obstaculoIndex < N_OBS; obstaculoIndex++) {
-
-    }
-    return 0;
-}

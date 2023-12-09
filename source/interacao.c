@@ -18,9 +18,9 @@ void Keyboard(unsigned char c, int x, int y)
 {
 	switch(c)
 	{
-		case ' ':
-			if(flagColisao == 0)
-			{
+		case'R':
+		case 'r':
+			if(isAlive == 0) {
 				personagemPosX = 0;
 				personagemPosY = -223;
 				personagemPosZ = 1.0;
@@ -29,7 +29,8 @@ void Keyboard(unsigned char c, int x, int y)
 				velY = 40;
 				indiceChao = 0;
 				r = rand()%13;
-				flagColisao = 1;
+				vida = 2;
+				isAlive = 1;
 			}
 		break;
 

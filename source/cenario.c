@@ -183,8 +183,7 @@ void Chao(float posY)
 	glPopMatrix();
 }
 
-void DesenhaCenario(int i)
-{
+void DesenhaCenario(int i) {
 	int j;
 
 	glPushMatrix();

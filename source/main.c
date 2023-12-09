@@ -53,14 +53,18 @@ void Desenha()
 		Camera();
 		DesenhaCenario(indiceChao);
 		DesenhaEsfera();
-		CheckBottomCollision();
-		if(flagColisao)
-		{
+
+		posicao *objeto = checkCollision();
+		if (objeto) {
+			onCollision(objeto);
+		}
+		if (isAlive) {
 			TimeMove();
 			PosicaoX();
 			PosicaoY();
 			PosicaoZ();
 		}
+
 		if(personagemPosY > (indiceChao+225)) { indiceChao += 450; r = rand()%13; }
 	glPopMatrix();
 
