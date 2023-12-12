@@ -3,9 +3,17 @@
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "cenario.h"
 #include "camera.h"
 #include "colisao.h"
+
+typedef struct BMPImagem
+{
+    int   width;
+    int   height;
+    char *data;
+}BMPImage;
 
 posicao obstaculosAnt[N_OBS];
 posicao obstaculosAtual[N_OBS];
@@ -17,6 +25,160 @@ int indiceChao = 0;
 int posicoesY[N_OBS];
 
 unsigned int r = 0;
+
+#define MAX_NO_TEXTURES 3
+
+GLuint texture_id[MAX_NO_TEXTURES];
+char* filenameArray[MAX_NO_TEXTURES] = {
+        "chaoTextura.bmp",
+        "gramaTextura.bmp",
+		"caixaTextura.bmp"
+};
+
+void getBitmapImageData( char *pFileName, BMPImage *pImage )
+{
+    FILE *pFile = NULL;
+    unsigned short nNumPlanes;
+    unsigned short nNumBPP;
+    int i;
+
+    if( (pFile = fopen(pFileName, "rb") ) == NULL )
+        printf("ERROR: getBitmapImageData - %s not found.\n", pFileName);
+
+    // Seek forward to width and height info
+    fseek( pFile, 18, SEEK_CUR );
+
+    if( (i = fread(&pImage->width, 4, 1, pFile) ) != 1 )
+        printf("ERROR: getBitmapImageData - Couldn't read width from %s.\n ", pFileName);
+
+    if( (i = fread(&pImage->height, 4, 1, pFile) ) != 1 )
+        printf("ERROR: getBitmapImageData - Couldn't read height from %s.\n ", pFileName);
+
+    if( (fread(&nNumPlanes, 2, 1, pFile) ) != 1 )
+        printf("ERROR: getBitmapImageData - Couldn't read plane count from %s.\n", pFileName);
+
+    if( nNumPlanes != 1 )
+        printf("ERROR: getBitmapImageData - Plane count from %s.\n ", pFileName);
+
+    if( (i = fread(&nNumBPP, 2, 1, pFile)) != 1 )
+        printf( "ERROR: getBitmapImageData - Couldn't read BPP from %s.\n ", pFileName);
+
+    if( nNumBPP != 24 )
+        printf("ERROR: getBitmapImageData - BPP from %s.\n ", pFileName);
+
+    // Seek forward to image data
+    fseek( pFile, 24, SEEK_CUR );
+
+    // Calculate the image's total size in bytes. Note how we multiply the
+    // result of (width * height) by 3. This is becuase a 24 bit color BMP
+    // file will give you 3 bytes per pixel.
+    int nTotalImagesize = (pImage->width * pImage->height) * 3;
+
+    pImage->data = (char*) malloc( nTotalImagesize );
+
+    if( (i = fread(pImage->data, nTotalImagesize, 1, pFile) ) != 1 )
+        printf("ERROR: getBitmapImageData - Couldn't read image data from %s.\n ", pFileName);
+
+    //
+    // Finally, rearrange BGR to RGB
+    //
+
+    char charTemp;
+    for( i = 0; i < nTotalImagesize; i += 3 )
+    {
+        charTemp = pImage->data[i];
+        pImage->data[i] = pImage->data[i+2];
+        pImage->data[i+2] = charTemp;
+    }
+}
+
+void CarregaTexturas()
+{
+    BMPImage textura;
+
+    /* Define quantas texturas serão usadas no programa  */
+    glGenTextures(MAX_NO_TEXTURES, texture_id); /* 1 = uma textura; */
+                                /* texture_id = vetor que guardas os números das texturas */
+
+    int i;
+    for ( i=0; i<MAX_NO_TEXTURES; i++ ) {
+        getBitmapImageData( filenameArray[i], &textura);
+        glBindTexture(GL_TEXTURE_2D, texture_id[i]);
+        glTexImage2D(GL_TEXTURE_2D, 0, 3, textura.width, textura.height, 0, GL_RGB, GL_UNSIGNED_BYTE, textura.data);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    }
+}
+
+void initTexture (void)
+{
+
+    /* Habilita o uso de textura bidimensional  */
+    glEnable ( GL_TEXTURE_2D );
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    /*Carrega os arquivos de textura */
+  //  CarregaTextura("tunnelTexture.bmp");
+    //CarregaTextura("tex2.bmp");
+    CarregaTexturas();
+
+}
+
+void drawBox(GLfloat size, GLenum type, int textura)
+{
+	GLfloat n[6][3] =
+	{
+		{-1.0, 0.0, 0.0},
+		{0.0, 1.0, 0.0},
+		{1.0, 0.0, 0.0},
+		{0.0, -1.0, 0.0},
+		{0.0, 0.0, 1.0},
+		{0.0, 0.0, -1.0}
+	};
+	GLint faces[6][4] =
+	{
+		{0, 1, 2, 3},
+		{3, 2, 6, 7},
+		{7, 6, 5, 4},
+		{4, 5, 1, 0},
+		{5, 6, 2, 1},
+		{7, 4, 0, 3}
+	};
+	GLfloat v[8][3];
+	GLint i;
+
+	v[0][0] = v[1][0] = v[2][0] = v[3][0] = -size / 2;
+	v[4][0] = v[5][0] = v[6][0] = v[7][0] = size / 2;
+	v[0][1] = v[1][1] = v[4][1] = v[5][1] = -size / 2;
+	v[2][1] = v[3][1] = v[6][1] = v[7][1] = size / 2;
+	v[0][2] = v[3][2] = v[4][2] = v[7][2] = -size / 2;
+	v[1][2] = v[2][2] = v[5][2] = v[6][2] = size / 2;
+
+	for (i = 5; i >= 0; i--) {
+		glBindTexture(GL_TEXTURE_2D, texture_id[textura]);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glBegin(type);
+			glNormal3fv(&n[i][0]);
+			glTexCoord2f(0.0f,0.0f);
+			glVertex3fv(&v[faces[i][0]][0]);
+			glTexCoord2f(1.0f,0.0f);
+			glVertex3fv(&v[faces[i][1]][0]);
+			glTexCoord2f(1.0f,1.0f);
+			glVertex3fv(&v[faces[i][2]][0]);
+			glTexCoord2f(0.0f,1.0f);
+			glVertex3fv(&v[faces[i][3]][0]);
+		glEnd();
+	}
+}
+
+void glutSolidCube1(GLdouble size, int textura)
+{
+	drawBox(size, GL_QUADS, textura);
+}
+
+
 
 void IniciaObstaculos()
 {
@@ -60,19 +222,19 @@ void SetObstaculos(posicao *obstaculos, int indiceChao)
 void ObstaculoGrande()
 {
 	glPushMatrix();
-		glColor3f(0.63, 0.63, 0.4);
+		// glColor3f(0.63, 0.63, 0.4);
 		glScalef(2, 9, 3);
 		glTranslatef(0, 0, 1);
-		glutSolidCube(1);
+		glutSolidCube1(1, 2);
 	glPopMatrix();
 }
 
 void ObstaculoPequeno()
 { glPushMatrix();
-		glColor3f(0.5, 0.5, 0.5);
+		// glColor3f(0.5, 0.5, 0.5);
 		glScalef(2, 2, 1.5);
 		glTranslatef(0, 0, 1);
-		glutSolidCube(1);
+		glutSolidCube1(1, 2);
 	glPopMatrix();
 }
 
@@ -150,21 +312,21 @@ void Chao(float posY)
 		glPushMatrix();
 			glColor3f(0.45, 0.35, 0.27);
 			glScalef(9, 450, 0.5);
-			glutSolidCube(1);
+			glutSolidCube1(1, 0);
 		glPopMatrix();
 
 		glPushMatrix();
 			glTranslatef(-10.5, 0, 0);
 			glColor3f(0.11, 0.39, 0.05);
 			glScalef(12, 450, 0.9);
-			glutSolidCube(1);
+			glutSolidCube1(1, 1);
 		glPopMatrix();
 
 		glPushMatrix();
 			glTranslatef(10.5, 0, 0);
 			glColor3f(0.11, 0.39, 0.05);
 			glScalef(12, 450, 0.9);
-			glutSolidCube(1);
+			glutSolidCube1(1, 1);
 		glPopMatrix();
 
 		glPushMatrix();

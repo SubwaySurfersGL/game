@@ -27,4 +27,6 @@ extern unsigned int r;
 void DesenhaCenario(int i);
 void IniciaObstaculos();
 
+void initTexture();
+
 #endif

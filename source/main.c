@@ -1,4 +1,4 @@
-#include <GL/gl.h>
+// #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <time.h>
@@ -37,6 +37,8 @@ void Inicia()
 	IniciaObstaculos();
 
 	Iluminacao();
+	
+        initTexture();
 }
 
 void Timer(int v)
