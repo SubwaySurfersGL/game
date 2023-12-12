@@ -26,13 +26,14 @@ int posicoesY[N_OBS];
 
 unsigned int r = 0;
 
-#define MAX_NO_TEXTURES 3
+#define MAX_NO_TEXTURES 4
 
 GLuint texture_id[MAX_NO_TEXTURES];
 char* filenameArray[MAX_NO_TEXTURES] = {
         "chaoTextura.bmp",
         "gramaTextura.bmp",
-		"caixaTextura.bmp"
+		"caixaTextura.bmp",
+		"paredeTextura.bmp"
 };
 
 void getBitmapImageData( char *pFileName, BMPImage *pImage )
@@ -225,7 +226,7 @@ void ObstaculoGrande()
 		// glColor3f(0.63, 0.63, 0.4);
 		glScalef(2, 9, 3);
 		glTranslatef(0, 0, 1);
-		glutSolidCube1(1, 2);
+		glutSolidCube1(1, 3);
 	glPopMatrix();
 }
 
