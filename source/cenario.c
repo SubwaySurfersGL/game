@@ -26,13 +26,16 @@ int posicoesY[N_OBS];
 
 unsigned int r = 0;
 
-#define MAX_NO_TEXTURES 3
+float y_gmovr;
+
+#define MAX_NO_TEXTURES 4
 
 GLuint texture_id[MAX_NO_TEXTURES];
 char* filenameArray[MAX_NO_TEXTURES] = {
         "chaoTextura.bmp",
         "gramaTextura.bmp",
-		"caixaTextura.bmp"
+	"caixaTextura.bmp",
+	"gameover.bmp"
 };
 
 void getBitmapImageData( char *pFileName, BMPImage *pImage )
@@ -126,6 +129,22 @@ void initTexture (void)
 
 }
 
+void Brilho (){
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);  // ou outra luz que desejar
+        glEnable(GL_COLOR_MATERIAL);
+
+        GLfloat ambient[] = {3.0, 2.0, 3.0, 3.0};  // Cor ambiente
+        GLfloat diffuse[] = {3.0, 3.0, 3.0, 3.0};  // Cor difusa
+        GLfloat specular[] = {3.0, 2.0, 3.0, 3.0}; // Cor especular
+        GLfloat shininess[] = {60.0};               // Brilho
+
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+}
+
 void drawBox(GLfloat size, GLenum type, int textura)
 {
 	GLfloat n[6][3] =
@@ -178,6 +197,23 @@ void glutSolidCube1(GLdouble size, int textura)
 	drawBox(size, GL_QUADS, textura);
 }
 
+void gameover(){
+
+
+	glColor3f(8.0, 8.0, 8.0);
+        glBindTexture(GL_TEXTURE_2D, texture_id[3]);
+        glBegin(GL_POLYGON);
+                glTexCoord2f(0.0f,1.0f);
+                glVertex3f(-2.0, y_gmovr, 8.0);
+                glTexCoord2f(1.0f,1.0f);
+                glVertex3f(2.0, y_gmovr, 8.0);
+                glTexCoord2f(1.0f,0.0f);
+                glVertex3f(2.0, y_gmovr, 5.0);
+                glTexCoord2f(0.0f,0.0f);
+                glVertex3f(-2.0, y_gmovr, 5.0);
+        glEnd();
+
+}
 
 
 void IniciaObstaculos()

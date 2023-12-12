@@ -39,6 +39,8 @@ void Inicia()
 	Iluminacao();
 	
         initTexture();
+
+	Brilho();
 }
 
 void Timer(int v)
@@ -65,6 +67,8 @@ void Desenha()
 			PosicaoX();
 			PosicaoY();
 			PosicaoZ();
+		}else{
+			gameover();
 		}
 
 		if(personagemPosY > (indiceChao+225)) { indiceChao += 450; r = rand()%13; }
