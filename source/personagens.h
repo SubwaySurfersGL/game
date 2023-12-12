@@ -14,5 +14,6 @@ extern int vida;
 
 void DesenhaEsfera();
 void onCollision(posicao *objeto);
+void initTextureEsfera();
 #endif
 

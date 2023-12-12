@@ -158,7 +158,7 @@ void drawBox(GLfloat size, GLenum type, int textura)
 
 	for (i = 5; i >= 0; i--) {
 		glBindTexture(GL_TEXTURE_2D, texture_id[textura]);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 		glBegin(type);
 			glNormal3fv(&n[i][0]);
 			glTexCoord2f(0.0f,0.0f);
