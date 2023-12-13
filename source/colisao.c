@@ -36,6 +36,7 @@ posicao *checkCollision() {
             colisao->flag = posicaoObject.flag;
             colisao->posX = posicaoObject.posX;
             colisao->posY = posicaoObject.posY;
+	    y_gmovr = posicaoObject.posY;
             return colisao;
 		}
     }

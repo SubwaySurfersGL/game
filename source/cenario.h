@@ -18,6 +18,7 @@ typedef struct posicao
 
 extern posicao obstaculos[N_OBS];
 extern int indiceChao;
+extern float y_gmovr;
 
 extern int indiceChao;
 extern int posicoesY[N_OBS];
@@ -26,7 +27,8 @@ extern unsigned int r;
 
 void DesenhaCenario(int i);
 void IniciaObstaculos();
-
+void gameover();
 void initTexture();
+void Brilho();
 
 #endif
