@@ -14,33 +14,19 @@ float camPosY = -235, camLookY = 0;
 
 float dt = 0.0, oldt = 0.0;
 
-void Textura()
-{
-}
-
 void Iluminacao()
 {
-    GLfloat posicaoLuz[4]={0.0, 0.5, 1.0, 0.0};
-    GLfloat luzAmbiente[4]={0.1, 0.1, 0.1, 1.0};
-    GLfloat luzDifusa[4]={0.8, 0.8, 0.8, 1.0};
-    GLfloat luzEspecular[4]={1.0, 1.0, 1.0, 1.0};
+    GLfloat light0_pos[4]={1.0, 0.5, 1.0, 0.0};
+    GLfloat white[4]={1.0, 1.0, 1.0, 1.0};
+    GLfloat black[4]={0.0, 0.0, 0.0, 1.0};
 
-    GLfloat objeto_ambiente[4] = {0.05,0.05,0.05,1.0};
-    GLfloat objeto_difusa[4] = {0.05,0.05,0.05,1.0};
+    glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, black);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
 
-    GLfloat especularidade[4]={0.1,0.1,0.1,1.0};
-    GLint especMaterial = 1;
-
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
-    glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
-    glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 90.0);
-
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, objeto_ambiente);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, objeto_difusa);
-    glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
-    glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+	GLfloat global_ambient[] = {0.7, 0.7, 0.7, 1.0};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
 }
 
 void Camera()
